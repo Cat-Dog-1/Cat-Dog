@@ -1,11 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cat-Dog | Inicio</title>
+  <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    
+
+  <header class="principal">
+    <div class="barra-nav">
+      <div class="logo">Cat<span>Dog</span></div>
+      <nav class="menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="blogs.html">Blogs</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="acciones-header">
+        <a href="login.html">Iniciar sesión</a>
+        <a href="registro.html">Registrarse</a>
+        <a href="carrito.html" id="contador-carrito">🛒 0</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="texto">
+        <h1>Todo lo que tu mascota necesita</h1>
+        <p>Alimento, juguetes, accesorios e higiene con despacho a todo Chile.</p>
+        <a href="productos.html" class="btn">Ver productos</a>
+        <a href="nosotros.html" class="btn secundario">Conócenos</a>
+      </div>
+      <div class="imagen">
+        <img src="img/hero-mascotas.jpg" alt="Perro y gato juntos" onerror="this.src='https://placehold.co/500x350?text=PetShop'">
+      </div>
+    </section>
+
+    <section class="contenedor">
+      <h2 class="titulo-seccion">Productos destacados</h2>
+      <div id="catalogo-home" class="grid-productos"></div>
+      <p class="texto-centrado" style="margin-top:20px;">
+        <a href="productos.html" class="btn">Ver todo el catálogo</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="principal">
+    <p>© 2026 Cat-Dog. Todos los derechos reservados.</p>
+    <p><a href="contacto.html">Contáctanos</a> | <a href="nosotros.html">Sobre nosotros</a></p>
+  </footer>
+
+  <script src="js/productos.js"></script>
+  <script src="js/carrito.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    renderizarCatalogo("catalogo-home", 4);
+  </script>
 </body>
 </html>
