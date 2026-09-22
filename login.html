@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cat-Dog | Iniciar sesión</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="principal">
+    <div class="barra-nav">
+      <div class="logo">Cat<span>Dog</span></div>
+      <nav class="menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="blogs.html">Blogs</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="acciones-header">
+        <a href="carrito.html" id="contador-carrito">🛒 0</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="contenedor texto-centrado">
+    <img src="img/logo.png" alt="Logo Cat-Dog" style="width:100px;margin:20px auto;" onerror="this.src='https://placehold.co/100x100?text=Cat-Dog'">
+    <h1>Cat-Dog</h1>
+
+    <form id="form-login" class="tarjeta-form" novalidate style="text-align:left;">
+      <div class="alerta-exito" id="mensaje-exito-login">¡Sesión iniciada correctamente!</div>
+
+      <div class="campo">
+        <label for="login-correo">Correo</label>
+        <input type="email" id="login-correo" name="correo" placeholder="nombre@duoc.cl" autocomplete="email">
+        <span class="mensaje-error"></span>
+      </div>
+
+      <div class="campo">
+        <label for="login-clave">Contraseña</label>
+        <input type="password" id="login-clave" name="clave" autocomplete="current-password">
+        <span class="mensaje-error"></span>
+        <p class="pista">Entre 4 y 10 caracteres.</p>
+      </div>
+
+      <button type="submit" class="btn" style="width:100%;">Iniciar sesión</button>
+      <p class="texto-centrado" style="margin-top:14px;">¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+    </form>
+  </main>
+
+  <footer class="principal">
+    <p>© 2026 Cat-Dog. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="js/productos.js"></script>
+  <script src="js/carrito.js"></script>
+  <script src="js/validaciones.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    inicializarFormularioLogin();
+  </script>
+</body>
+</html>
