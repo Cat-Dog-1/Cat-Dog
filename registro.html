@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatDog | Registro de usuario</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="principal">
+    <div class="barra-nav">
+      <div class="logo">Cat<span>Dog</span></div>
+      <nav class="menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="blogs.html">Blogs</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="acciones-header">
+        <a href="carrito.html" id="contador-carrito">🛒 0</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    <h1 class="titulo-seccion">Registro de usuario</h1>
+    <form id="form-registro" class="tarjeta-form ancho" novalidate>
+      <div class="alerta-exito" id="mensaje-exito-registro">¡Registro exitoso! Ya puedes iniciar sesión.</div>
+
+      <div class="campo">
+        <label for="run">RUN (sin puntos ni guion)</label>
+        <input type="text" id="run" name="run" placeholder="19011022K" autocomplete="off">
+        <span class="mensaje-error"></span>
+      </div>
+
+      <div class="campo">
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" autocomplete="given-name">
+        <span class="mensaje-error"></span>
+      </div>
+
+      <div class="campo">
+        <label for="apellidos">Apellidos</label>
+        <input type="text" id="apellidos" name="apellidos" autocomplete="family-name">
+        <span class="mensaje-error"></span>
+      </div>
+
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <input type="email" id="correo" name="correo" placeholder="nombre@duoc.cl" autocomplete="email" list="sugerencias-correo">
+        <datalist id="sugerencias-correo">
+          <option value="@duoc.cl">
+          <option value="@profesor.duoc.cl">
+          <option value="@gmail.com">
+        </datalist>
+        <span class="mensaje-error"></span>
+      </div>
+
+      <div class="campo">
+        <label for="clave">Contraseña (4 a 10 caracteres)</label>
+        <input type="password" id="clave" name="clave" autocomplete="new-password">
+        <span class="mensaje-error"></span>
+      </div>
+
+      <div class="campo">
+        <label for="confirmar-clave">Confirmar contraseña</label>
+        <input type="password" id="confirmar-clave" name="confirmar-clave" autocomplete="new-password">
+        <span class="mensaje-error"></span>
+      </div>
+
+      <div class="campo">
+        <label for="telefono">Teléfono (opcional)</label>
+        <input type="tel" id="telefono" name="telefono" autocomplete="tel">
+      </div>
+
+      <div class="campo">
+        <label for="region">Región</label>
+        <select id="region" name="region"></select>
+        <span class="mensaje-error"></span>
+      </div>
+
+      <div class="campo">
+        <label for="comuna">Comuna</label>
+        <select id="comuna" name="comuna"></select>
+        <span class="mensaje-error"></span>
+      </div>
+
+      <div class="campo">
+        <label for="direccion">Dirección (máx. 300 caracteres)</label>
+        <input type="text" id="direccion" name="direccion" autocomplete="street-address">
+        <span class="mensaje-error"></span>
+      </div>
+
+      <button type="submit" class="btn" style="width:100%;">Registrar</button>
+    </form>
+  </main>
+
+  <footer class="principal">
+    <p>© 2026 CatDog. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="js/productos.js"></script>
+  <script src="js/carrito.js"></script>
+  <script src="js/regiones.js"></script>
+  <script src="js/validaciones.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    inicializarSelectRegiones("region", "comuna");
+    inicializarFormularioUsuario("form-registro", "mensaje-exito-registro");
+  </script>
+</body>
+</html>
