@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatDog Admin | Usuarios</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="logo-admin">Cat<span>Dog</span> Admin</div>
+      <nav>
+        <ul>
+          <li><a href="admin-home.html">Dashboard</a></li>
+          <li><a href="admin-productos.html">Productos</a></li>
+          <li><a href="admin-usuarios.html" class="activo">Usuarios</a></li>
+          <li><a href="index.html">Volver a la tienda</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="admin-contenido">
+      <div class="admin-topbar">
+        <h1>Listado de usuarios</h1>
+        <a href="admin-usuario-nuevo.html" class="btn pequeno">+ Nuevo usuario</a>
+      </div>
+
+      <table class="tabla-admin">
+        <thead>
+          <tr><th>RUN</th><th>Nombre</th><th>Correo</th><th>Tipo</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>190110221</td><td>Karina Soto</td><td>karina@duoc.cl</td><td>Administrador</td>
+            <td class="acciones-fila"><a href="admin-usuario-editar.html?id=1" class="btn pequeno">Editar</a></td>
+          </tr>
+          <tr>
+            <td>178654321</td><td>Claudia González</td><td>Claudia@catdog.com</td><td>Vendedor</td>
+            <td class="acciones-fila"><a href="admin-usuario-editar.html?id=2" class="btn pequeno">Editar</a></td>
+          </tr>
+          <tr>
+            <td>209876543</td><td>María López</td><td>maria.lopez@gmail.com</td><td>Cliente</td>
+            <td class="acciones-fila"><a href="admin-usuario-editar.html?id=3" class="btn pequeno">Editar</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

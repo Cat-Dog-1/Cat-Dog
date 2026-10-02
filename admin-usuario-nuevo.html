@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatDog Admin | Nuevo usuario</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="logo-admin">Cat<span>Dog</span> Admin</div>
+      <nav>
+        <ul>
+          <li><a href="admin-home.html">Dashboard</a></li>
+          <li><a href="admin-productos.html">Productos</a></li>
+          <li><a href="admin-usuarios.html" class="activo">Usuarios</a></li>
+          <li><a href="index.html">Volver a la tienda</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="admin-contenido">
+      <div class="admin-topbar"><h1>Nuevo usuario</h1></div>
+
+      <form id="form-usuario" class="tarjeta-form ancho" style="margin:0;" novalidate>
+        <div class="alerta-exito" id="mensaje-exito-usuario">¡Usuario creado correctamente!</div>
+
+        <div class="campo">
+          <label for="run">RUN (sin puntos ni guion)</label>
+          <input type="text" id="run" name="run" placeholder="19011022K">
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="nombre">Nombre (máx. 50)</label>
+          <input type="text" id="nombre" name="nombre">
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="apellidos">Apellidos (máx. 100)</label>
+          <input type="text" id="apellidos" name="apellidos">
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="correo">Correo</label>
+          <input type="email" id="correo" name="correo" placeholder="nombre@duoc.cl">
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="clave">Contraseña (4 a 10 caracteres)</label>
+          <input type="password" id="clave" name="clave">
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="confirmar-clave">Confirmar contraseña</label>
+          <input type="password" id="confirmar-clave" name="confirmar-clave">
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="tipo-usuario">Tipo de usuario</label>
+          <select id="tipo-usuario" name="tipo-usuario">
+            <option value="">-- Seleccione --</option>
+            <option value="Administrador">Administrador</option>
+            <option value="Vendedor">Vendedor</option>
+            <option value="Cliente">Cliente</option>
+          </select>
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="region">Región</label>
+          <select id="region" name="region"></select>
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="comuna">Comuna</label>
+          <select id="comuna" name="comuna"></select>
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="direccion">Dirección (máx. 300)</label>
+          <input type="text" id="direccion" name="direccion">
+          <span class="mensaje-error"></span>
+        </div>
+
+        <button type="submit" class="btn" style="width:100%;">Registrar usuario</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/regiones.js"></script>
+  <script src="js/validaciones.js"></script>
+  <script>
+    inicializarSelectRegiones("region", "comuna");
+    inicializarFormularioUsuario("form-usuario", "mensaje-exito-usuario");
+  </script>
+</body>
+</html>

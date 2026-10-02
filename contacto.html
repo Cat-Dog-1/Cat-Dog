@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatDog | Contacto</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="principal">
+    <div class="barra-nav">
+      <div class="logo">Cat<span>Dog</span></div>
+      <nav class="menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="blogs.html">Blogs</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="acciones-header">
+        <a href="carrito.html" id="contador-carrito">🛒 0</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="contenedor texto-centrado">
+    <img src="img/logo.png" alt="Logo CatDog" style="width:90px;margin:20px auto;" onerror="this.src='https://placehold.co/90x90?text=Pet'">
+    <h1>CatDog</h1>
+
+    <form id="form-contacto" class="tarjeta-form" novalidate style="text-align:left;">
+      <div class="alerta-exito" id="mensaje-exito-contacto">¡Tu mensaje fue enviado! Te responderemos pronto.</div>
+
+      <h2 style="text-align:center;">Formulario de contacto</h2>
+
+      <div class="campo">
+        <label for="contacto-nombre">Nombre completo</label>
+        <input type="text" id="contacto-nombre" name="nombre" autocomplete="name">
+        <span class="mensaje-error"></span>
+      </div>
+
+      <div class="campo">
+        <label for="contacto-correo">Correo</label>
+        <input type="email" id="contacto-correo" name="correo" placeholder="nombre@duoc.cl" autocomplete="email">
+        <span class="mensaje-error"></span>
+      </div>
+
+      <div class="campo">
+        <label for="contacto-comentario">Comentario (máx. 500 caracteres)</label>
+        <textarea id="contacto-comentario" name="comentario" rows="5"></textarea>
+        <span class="mensaje-error"></span>
+      </div>
+
+      <button type="submit" class="btn" style="width:100%;">Enviar mensaje</button>
+    </form>
+  </main>
+
+  <footer class="principal">
+    <p>© 2026 CatDog. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="js/productos.js"></script>
+  <script src="js/carrito.js"></script>
+  <script src="js/validaciones.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    inicializarFormularioContacto();
+  </script>
+</body>
+</html>

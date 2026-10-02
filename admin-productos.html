@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatDog Admin | Productos</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="logo-admin">Cat<span>Dog</span> Admin</div>
+      <nav>
+        <ul>
+          <li><a href="admin-home.html">Dashboard</a></li>
+          <li><a href="admin-productos.html" class="activo">Productos</a></li>
+          <li><a href="admin-usuarios.html">Usuarios</a></li>
+          <li><a href="index.html">Volver a la tienda</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="admin-contenido">
+      <div class="admin-topbar">
+        <h1>Listado de productos</h1>
+        <a href="admin-producto-nuevo.html" class="btn pequeno">+ Nuevo producto</a>
+      </div>
+
+      <table class="tabla-admin">
+        <thead>
+          <tr><th>Código</th><th>Nombre</th><th>Precio</th><th>Stock</th><th>Categoría</th><th>Acciones</th></tr>
+        </thead>
+        <tbody id="tabla-productos-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="js/productos.js"></script>
+  <script>
+    const cuerpo = document.getElementById("tabla-productos-body");
+    cuerpo.innerHTML = productos.map(p => `
+      <tr>
+        <td>P-${String(p.id).padStart(3, "0")}</td>
+        <td>${p.nombre}</td>
+        <td>$${formatearPrecio(p.precio)}</td>
+        <td>
+          ${p.stock} ${p.stock <= p.stockCritico
+            ? '<span class="badge stock-critico">Crítico</span>'
+            : '<span class="badge stock-ok">OK</span>'}
+        </td>
+        <td>${p.categoria}</td>
+        <td class="acciones-fila">
+          <a href="admin-producto-editar.html?id=${p.id}" class="btn pequeno">Editar</a>
+        </td>
+      </tr>
+    `).join("");
+  </script>
+</body>
+</html>

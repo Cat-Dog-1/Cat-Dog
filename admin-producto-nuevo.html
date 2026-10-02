@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatDog Admin | Nuevo producto</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="logo-admin">Cat<span>Dog</span> Admin</div>
+      <nav>
+        <ul>
+          <li><a href="admin-home.html">Dashboard</a></li>
+          <li><a href="admin-productos.html" class="activo">Productos</a></li>
+          <li><a href="admin-usuarios.html">Usuarios</a></li>
+          <li><a href="index.html">Volver a la tienda</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="admin-contenido">
+      <div class="admin-topbar"><h1>Nuevo producto</h1></div>
+
+      <form id="form-producto" class="tarjeta-form ancho" style="margin:0;" novalidate>
+        <div class="alerta-exito" id="mensaje-exito-producto">¡Producto guardado correctamente!</div>
+
+        <div class="campo">
+          <label for="codigo">Código de producto (mín. 3 caracteres)</label>
+          <input type="text" id="codigo" name="codigo">
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="nombre-producto">Nombre (máx. 100)</label>
+          <input type="text" id="nombre-producto" name="nombre">
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="descripcion-producto">Descripción (opcional, máx. 500)</label>
+          <textarea id="descripcion-producto" name="descripcion" rows="4"></textarea>
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="precio">Precio</label>
+          <input type="number" id="precio" name="precio" min="0" step="0.01">
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="stock">Stock</label>
+          <input type="number" id="stock" name="stock" min="0" step="1">
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="stock-critico">Stock crítico (opcional)</label>
+          <input type="number" id="stock-critico" name="stock-critico" min="0" step="1">
+        </div>
+
+        <div class="campo">
+          <label for="categoria">Categoría</label>
+          <select id="categoria" name="categoria">
+            <option value="">-- Seleccione --</option>
+            <option value="Alimento">Alimento</option>
+            <option value="Juguetes">Juguetes</option>
+            <option value="Accesorios">Accesorios</option>
+            <option value="Higiene">Higiene</option>
+          </select>
+          <span class="mensaje-error"></span>
+        </div>
+
+        <div class="campo">
+          <label for="imagen">Imagen (opcional)</label>
+          <input type="file" id="imagen" name="imagen" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn" style="width:100%;">Guardar producto</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/validaciones.js"></script>
+  <script>
+    inicializarFormularioProducto();
+  </script>
+</body>
+</html>
