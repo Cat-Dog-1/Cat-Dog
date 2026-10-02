@@ -52,10 +52,9 @@ header.principal {
   gap: 10px;
 }
 
-.logo {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: var(--blanco);
+.logo img{
+  height: 55px;
+  border-radius: 8px;
 }
 .logo span { color: var(--naranja); }
 
