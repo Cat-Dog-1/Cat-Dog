@@ -3,6 +3,7 @@
   --naranja: #ff7a3d;
   --naranja-oscuro: #e05f22;
   --azul: #2f4858;
+  --oscuro: #1a2028;
   --gris-claro: #f4f4f4;
   --gris-borde: #ddd;
   --blanco: #fff;
@@ -34,7 +35,7 @@ img { max-width: 100%; display: block; }
 
 /* ==== Header / Nav ==== */
 header.principal {
-  background: var(--azul);
+  background: var(--oscuro);
   color: var(--blanco);
   position: sticky;
   top: 0;
@@ -52,9 +53,17 @@ header.principal {
   gap: 10px;
 }
 
-.logo img{
-  height: 55px;
-  border-radius: 8px;
+.logo img {
+  height: 70px;
+  display: block;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 15%, #000 85%, transparent),
+    linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 15%, #000 85%, transparent),
+    linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent);
+  mask-composite: intersect;
 }
 .logo span { color: var(--naranja); }
 
@@ -117,7 +126,7 @@ nav.menu a:hover { color: var(--naranja); text-decoration: none; }
 .btn.peligro { background: var(--error); }
 
 /* ==== Secciones genéricas ==== */
-main { padding: 30px 0 60px; }
+main:has(.hero) { padding-top: 0; }
 section { margin-bottom: 40px; }
 .titulo-seccion {
   text-align: center;
@@ -260,7 +269,7 @@ form.tarjeta-form.ancho { max-width: 640px; }
 
 /* ==== Footer ==== */
 footer.principal {
-  background: var(--azul);
+  background: var(--oscuro);
   color: var(--blanco);
   padding: 30px 20px;
   text-align: center;
