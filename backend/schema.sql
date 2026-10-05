@@ -1,5 +1,4 @@
--- Ejecuta este script UNA VEZ en el editor SQL de Neon (pestaña "SQL Editor")
--- o con: psql "TU_CONNECTION_STRING" -f schema.sql
+
 
 CREATE TABLE IF NOT EXISTS productos (
   id SERIAL PRIMARY KEY,
