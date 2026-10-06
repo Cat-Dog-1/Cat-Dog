@@ -27,11 +27,12 @@
   </header>
 
   <main class="contenedor texto-centrado">
-    <img src="img/logo.png" alt="Logo CatDog" style="width:90px;margin:20px auto;" onerror="this.src='https://placehold.co/90x90?text=Pet'">
+    <img src="img/catdog.png" alt="Logo CatDog" style="width:90px;margin:20px auto;" onerror="this.src='https://placehold.co/90x90?text=CatDog'">
     <h1>CatDog</h1>
 
     <form id="form-contacto" class="tarjeta-form" novalidate style="text-align:left;">
       <div class="alerta-exito" id="mensaje-exito-contacto">¡Tu mensaje fue enviado! Te responderemos pronto.</div>
+      <p class="mensaje-error" id="error-api" style="display:none;"></p>
 
       <h2 style="text-align:center;">Formulario de contacto</h2>
 
@@ -63,6 +64,7 @@
 
   <script src="js/productos.js"></script>
   <script src="js/carrito.js"></script>
+  <script src="js/api.js"></script>
   <script src="js/validaciones.js"></script>
   <script src="js/main.js"></script>
   <script>

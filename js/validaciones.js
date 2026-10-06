@@ -50,12 +50,23 @@ function validarRun(id) {
   return true;
 }
 
+function mostrarErrorApi(mensaje) {
+  const caja = document.getElementById("error-api");
+  if (caja) { caja.textContent = mensaje; caja.style.display = "block"; }
+  else alert(mensaje);
+}
+
+function ocultarErrorApi() {
+  const caja = document.getElementById("error-api");
+  if (caja) caja.style.display = "none";
+}
+
 // ===== LOGIN (login.html) =====
 function inicializarFormularioLogin() {
   const form = document.getElementById("form-login");
   if (!form) return;
 
-  form.addEventListener("submit", (evento) => {
+  form.addEventListener("submit", async (evento) => {
     evento.preventDefault();
     let ok = true;
     if (!validarCorreo("login-correo")) ok = false;
@@ -66,9 +77,23 @@ function inicializarFormularioLogin() {
       ok = false;
     } else marcarValido("login-clave");
 
-    if (ok) {
+    if (!ok) return;
+
+    try {
+      const respuesta = await llamarApi("/usuarios/login", {
+        method: "POST",
+        body: JSON.stringify({
+          correo: document.getElementById("login-correo").value.trim(),
+          clave: clave,
+        }),
+      });
+      localStorage.setItem("catdog_token", respuesta.token);
+      localStorage.setItem("catdog_usuario", JSON.stringify(respuesta.usuario));
+      ocultarErrorApi();
       document.getElementById("mensaje-exito-login").style.display = "block";
       form.reset();
+    } catch (error) {
+      mostrarErrorApi(error.message);
     }
   });
 }
@@ -78,7 +103,7 @@ function inicializarFormularioUsuario(formId, mensajeExitoId) {
   const form = document.getElementById(formId);
   if (!form) return;
 
-  form.addEventListener("submit", (evento) => {
+  form.addEventListener("submit", async (evento) => {
     evento.preventDefault();
     let ok = true;
 
@@ -105,11 +130,35 @@ function inicializarFormularioUsuario(formId, mensajeExitoId) {
     if (!validarRequerido("comuna")) ok = false;
     if (!validarRequerido("direccion") || !validarLargoMax("direccion", 300, "Máximo 300 caracteres.")) ok = false;
 
-    if (ok) {
-      const mensaje = document.getElementById(mensajeExitoId);
-      if (mensaje) mensaje.style.display = "block";
-      form.reset();
+    if (!ok) return;
+
+    // Solo el registro público (registro.html) guarda en la base de datos.
+    // Las pantallas del administrador siguen funcionando como antes.
+    if (formId === "form-registro") {
+      try {
+        await llamarApi("/usuarios/registro", {
+          method: "POST",
+          body: JSON.stringify({
+            run: document.getElementById("run").value.trim().toUpperCase(),
+            nombre: document.getElementById("nombre").value.trim(),
+            apellidos: document.getElementById("apellidos").value.trim(),
+            correo: document.getElementById("correo").value.trim(),
+            clave: document.getElementById("clave").value,
+            region: document.getElementById("region").value,
+            comuna: document.getElementById("comuna").value,
+            direccion: document.getElementById("direccion").value.trim(),
+          }),
+        });
+        ocultarErrorApi();
+      } catch (error) {
+        mostrarErrorApi(error.message);
+        return;
+      }
     }
+
+    const mensaje = document.getElementById(mensajeExitoId);
+    if (mensaje) mensaje.style.display = "block";
+    form.reset();
   });
 }
 
@@ -118,16 +167,29 @@ function inicializarFormularioContacto() {
   const form = document.getElementById("form-contacto");
   if (!form) return;
 
-  form.addEventListener("submit", (evento) => {
+  form.addEventListener("submit", async (evento) => {
     evento.preventDefault();
     let ok = true;
     if (!validarRequerido("contacto-nombre") || !validarLargoMax("contacto-nombre", 100)) ok = false;
     if (!validarCorreo("contacto-correo")) ok = false;
     if (!validarRequerido("contacto-comentario") || !validarLargoMax("contacto-comentario", 500, "Máximo 500 caracteres.")) ok = false;
 
-    if (ok) {
+    if (!ok) return;
+
+    try {
+      await llamarApi("/mensajes", {
+        method: "POST",
+        body: JSON.stringify({
+          nombre: document.getElementById("contacto-nombre").value.trim(),
+          correo: document.getElementById("contacto-correo").value.trim(),
+          comentario: document.getElementById("contacto-comentario").value.trim(),
+        }),
+      });
+      ocultarErrorApi();
       document.getElementById("mensaje-exito-contacto").style.display = "block";
       form.reset();
+    } catch (error) {
+      mostrarErrorApi(error.message);
     }
   });
 }

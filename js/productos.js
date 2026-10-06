@@ -1,11 +1,10 @@
-// ===== Catálogo de productos (fijo en JS, mostrado en HTML según instrucción) =====
-// Imágenes: reemplaza estas rutas por las tuyas en la carpeta /img
+
 const productos = [
   { id: 1, nombre: "Alimento para Perro Adulto 15kg", precio: 24990, categoria: "Alimento", stock: 30, stockCritico: 5,
-    imagen: "img/alimento-perro.jpg",
+    imagen: "img/perro_alimento.jpg",
     descripcion: "Alimento balanceado para perros adultos, rico en proteínas y vitaminas." },
   { id: 2, nombre: "Alimento para Gato 5kg", precio: 15990, categoria: "Alimento", stock: 20, stockCritico: 5,
-    imagen: "img/alimento-gato.jpg",
+    imagen: "img/leonardosalmon.2-1.jpg",
     descripcion: "Fórmula completa para gatos adultos, favorece un pelaje sano." },
   { id: 3, nombre: "Pelota de Goma Resistente", precio: 4990, categoria: "Juguetes", stock: 50, stockCritico: 10,
     imagen: "img/pelota.jpg",
