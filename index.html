@@ -11,7 +11,7 @@
   <header class="principal">
     <div class="barra-nav">
       <a href="index.html" class="logo">
-      <img src="img/catdog.png" alt="Logo CatDog">
+        <img src="img/CatDog.png" alt="Logo CatDog">
       </a>
       <nav class="menu">
         <ul>
@@ -39,7 +39,7 @@
         <a href="nosotros.html" class="btn secundario">Conócenos</a>
       </div>
       <div class="imagen">
-        <img src="img/tienda.png" alt="Perro y gato juntos" onerror="this.src='https://placehold.co/500x350?text=CatDog'">
+        <img src="img/tienda.png" alt="Tienda CatDog con perros y gatos" onerror="this.src='https://placehold.co/500x350?text=CatDog'">
       </div>
     </section>
 
@@ -50,6 +50,9 @@
         <a href="productos.html" class="btn">Ver todo el catálogo</a>
       </p>
     </section>
+
+    <!-- Aquí React dibuja la sección "Explora por categoría" -->
+    <div id="react-raiz"></div>
   </main>
 
   <footer class="principal">
@@ -59,4 +62,15 @@
 
   <script src="js/productos.js"></script>
   <script src="js/carrito.js"></script>
-  <script
+  <script src="js/main.js"></script>
+  <script>
+    renderizarCatalogo("catalogo-home", 4);
+  </script>
+
+  <!-- React (por CDN, sin instalar nada) -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel" src="js/react-categorias.jsx"></script>
+</body>
+</html>
