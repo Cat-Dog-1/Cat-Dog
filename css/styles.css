@@ -53,6 +53,11 @@ header.principal {
   gap: 10px;
 }
 
+.logo-contacto {
+  display: block;
+  margin: 20px auto;
+}
+
 .logo img {
   height: 70px;
   display: block;
