@@ -1,0 +1,78 @@
+/* Extiende estilos.css: cargar SIEMPRE después de estilos.css */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: 220px;
+  background: var(--azul);
+  color: var(--blanco);
+  padding: 20px 0;
+  flex-shrink: 0;
+}
+.admin-sidebar .logo-admin {
+  padding: 0 20px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+  margin-bottom: 10px;
+}
+.admin-sidebar .logo-admin span { color: var(--naranja); }
+.admin-sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+.admin-sidebar nav a {
+  display: block;
+  padding: 12px 20px;
+  color: var(--blanco);
+  font-size: 0.95rem;
+}
+.admin-sidebar nav a:hover,
+.admin-sidebar nav a.activo {
+  background: rgba(255,255,255,.1);
+  text-decoration: none;
+  border-left: 4px solid var(--naranja);
+}
+
+.admin-contenido {
+  flex: 1;
+  padding: 24px 30px;
+}
+
+.admin-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.admin-topbar h1 { margin: 0; font-size: 1.4rem; }
+
+.tabla-admin {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--blanco);
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+.tabla-admin th, .tabla-admin td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--gris-borde);
+  font-size: 0.9rem;
+}
+.tabla-admin th { background: var(--gris-claro); }
+.tabla-admin .acciones-fila { display: flex; gap: 8px; }
+
+.badge {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  color: var(--blanco);
+}
+.badge.stock-ok { background: var(--exito); }
+.badge.stock-critico { background: var(--error); }
+
+@media (max-width: 700px) {
+  .admin-layout { flex-direction: column; }
+  .admin-sidebar { width: 100%; }
+}

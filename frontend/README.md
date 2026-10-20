@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# CatDog — Frontend en React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Tienda CatDog hecha con React (`create-react-app`), conectada al backend Node/Express y a la base de datos Neon.
 
-## Available Scripts
+## Cómo correrlo
 
-In the project directory, you can run:
+**Terminal 1: backend**
+```
+cd backend
+npm install
+npm run seed      (solo la primera vez: crea tablas, productos y el admin)
+npm run dev
+```
 
-### `npm start`
+**Terminal 2: frontend**
+```
+cd frontend
+npm install
+npm start
+```
+Se abre en http://localhost:3000
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> En Windows, si PowerShell bloquea `npm`, usa `npm.cmd` (ej: `npm.cmd start`).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Usuario administrador de prueba
 
-### `npm test`
+- Correo: `admin@duoc.cl`
+- Contraseña: `admin123`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Pruebas
 
-### `npm run build`
+| Comando | Herramienta | Qué corre |
+|---|---|---|
+| `npm test` | Jest + React Testing Library | `src/**/*.test.js` (17 pruebas) |
+| `npm run test:karma` | Jasmine + Karma (Chrome) | `karma/**/*.spec.js` (18 pruebas) |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Funcionalidades
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Tienda: inicio, catálogo con buscador y filtro, detalle, carrito, blogs, nosotros, contacto.
+- Productos cargados desde la base de datos (si el backend está apagado, se usan productos de respaldo).
+- Registro, inicio y cierre de sesión. El header muestra al usuario conectado.
+- Compra: el botón Pagar exige sesión, descuenta stock y muestra la boleta. Página "Mis compras".
+- Panel de administración (solo usuarios Administrador): dashboard, CRUD de productos, CRUD de usuarios y listado de compras.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Estructura
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `src/App.js`: rutas de la aplicación (react-router-dom)
+- `src/components/`: piezas reutilizables (Header, Footer, TarjetaProducto, Campo, RutaProtegida, Boleta…)
+- `src/pages/`: una página por ruta, y `admin/` para el panel
+- `src/context/`: AuthContext (sesión), ProductosContext (productos), CarritoContext (carrito)
+- `src/services/api.js`: conexión con el backend
+- `src/utils/validaciones.js`: validaciones de formularios
+- `karma/` y `karma.conf.js`: pruebas con Jasmine + Karma
