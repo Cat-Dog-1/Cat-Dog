@@ -1,13 +1,35 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Ajustes propios de la versión React (los estilos principales están en styles.css) */
+
+/* Link del menú de la página actual (NavLink agrega la clase "active") */
+.menu a.active {
+  color: #ff7a3d;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Botón que se ve como un enlace (Cerrar sesión) */
+.enlace-boton {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
 }
+.enlace-boton:hover { text-decoration: underline; }
+
+.aviso-respaldo {
+  background: #fff8e1;
+  border-left: 4px solid #f2b600;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+/* Boleta de compra */
+.boleta { max-width: 640px; margin: 0 auto; background: #fff; border-radius: 10px; padding: 24px; }
+.boleta table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+.boleta th, .boleta td { padding: 8px; border-bottom: 1px solid #ddd; text-align: left; }
+.boleta .total { text-align: right; font-size: 1.2rem; }
+
+.acciones-header span,
+.acciones-header .enlace-boton { color: #fff; font-size: 0.9rem; }
