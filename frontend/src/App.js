@@ -35,7 +35,7 @@ function App() {
     <AuthProvider>
       <ProductosProvider>
         <CarritoProvider>
-          <BrowserRouter>
+                       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
             <Routes>
               {/* Tienda (con Header y Footer) */}
               <Route element={<TiendaLayout />}>
