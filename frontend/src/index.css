@@ -33,3 +33,27 @@
 
 .acciones-header span,
 .acciones-header .enlace-boton { color: #fff; font-size: 0.9rem; }
+
+/* ==== Carrito más visible ==== */
+#contador-carrito {
+  background: var(--blanco);
+  color: var(--oscuro);
+  font-size: 1.15rem;
+  padding: 8px 18px;
+  border: 3px solid var(--naranja);
+  box-shadow: 0 0 0 4px rgba(255, 122, 61, 0.3);
+}
+#contador-carrito:hover { background: var(--naranja); color: var(--blanco); text-decoration: none; }
+
+.item-carrito {
+  border-left: 6px solid var(--naranja);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  padding: 18px 20px;
+  font-size: 1.05rem;
+}
+.item-carrito .cantidad-controles button { width: 34px; height: 34px; font-size: 1.1rem; font-weight: bold; }
+
+.carrito-resumen { border-top: 6px solid var(--naranja); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08); }
+.carrito-resumen p strong { font-size: 1.6rem; color: var(--naranja-oscuro); }
+.carrito-resumen .btn:not(.secundario) { background: var(--naranja); font-size: 1.15rem; padding: 14px; }
+.carrito-resumen .btn:not(.secundario):hover { background: var(--naranja-oscuro); }
