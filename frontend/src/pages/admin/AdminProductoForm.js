@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Campo from "../../components/Campo";
-import { categorias } from "../../data/productos";
 import { useProductos } from "../../context/ProductosContext";
 import { llamarApi } from "../../services/api";
 import {
@@ -10,13 +9,13 @@ import {
 
 const vacio = {
   codigo: "", nombre: "", descripcion: "", precio: "", stock: "",
-  stockCritico: "", categoria: "", imagen: "img/",
+  stockCritico: "", categoriaId: "", imagen: "img/",
 };
 
 // Sirve para "Nuevo producto" (sin id) y "Editar producto" (con id en la URL)
 function AdminProductoForm() {
   const { id } = useParams();
-  const { buscarPorId, recargar } = useProductos();
+  const { buscarPorId, recargar, categorias } = useProductos();
   const navegar = useNavigate();
   const existente = id ? buscarPorId(id) : null;
 
@@ -29,7 +28,9 @@ function AdminProductoForm() {
           precio: existente.precio,
           stock: existente.stock,
           stockCritico: existente.stockCritico,
-          categoria: existente.categoria,
+          // categoriaId viene del backend; si no, se busca por el nombre
+          categoriaId: String(existente.categoriaId
+            ?? categorias.find((c) => c.nombre === existente.categoria)?.id ?? ""),
           imagen: (existente.imagen || "").replace(/^\//, ""), // en la BD se guarda sin "/"
         }
       : vacio
@@ -46,7 +47,7 @@ function AdminProductoForm() {
       descripcion: validarLargoMax(valores.descripcion, 500),
       precio: validarNumeroNoNegativo(valores.precio),
       stock: validarNumeroNoNegativo(valores.stock, { entero: true }),
-      categoria: validarRequerido(valores.categoria),
+      categoriaId: validarRequerido(valores.categoriaId),
     };
   }
 
@@ -64,11 +65,16 @@ function AdminProductoForm() {
     setErrores(nuevosErrores);
     if (!sinErrores(nuevosErrores)) return;
 
+    // Formato que espera el backend (ProductoRequest)
     const cuerpo = {
-      ...datos,
+      codigo: datos.codigo.trim(),
+      nombre: datos.nombre.trim(),
+      descripcion: datos.descripcion.trim(),
       precio: Number(datos.precio),
       stock: Number(datos.stock),
       stockCritico: Number(datos.stockCritico) || 0,
+      imagen: datos.imagen.trim(),
+      categoriaId: Number(datos.categoriaId),
     };
 
     try {
@@ -123,10 +129,10 @@ function AdminProductoForm() {
             value={datos.stockCritico} onChange={cambiar} />
         </Campo>
 
-        <Campo id="categoria" etiqueta="Categoría" error={errores.categoria} mostrarEstado={enviado}>
-          <select id="categoria" name="categoria" value={datos.categoria} onChange={cambiar}>
+        <Campo id="categoriaId" etiqueta="Categoría" error={errores.categoriaId} mostrarEstado={enviado}>
+          <select id="categoriaId" name="categoriaId" value={datos.categoriaId} onChange={cambiar}>
             <option value="">-- Seleccione --</option>
-            {categorias.map((c) => <option key={c} value={c}>{c}</option>)}
+            {categorias.map((c) => <option key={c.id} value={String(c.id)}>{c.nombre}</option>)}
           </select>
         </Campo>
 

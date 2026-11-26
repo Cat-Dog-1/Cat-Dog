@@ -23,7 +23,7 @@ function Carrito() {
     }
     setPagando(true);
     try {
-      const pedido = await llamarApi("/pedidos", {
+      const pedido = await llamarApi("/boletas", {
         method: "POST",
         body: JSON.stringify({ items: items.map((i) => ({ id: i.id, cantidad: i.cantidad })) }),
       });

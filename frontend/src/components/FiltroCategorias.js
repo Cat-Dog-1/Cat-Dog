@@ -1,9 +1,12 @@
-import { categorias } from "../data/productos";
+import { useProductos } from "../context/ProductosContext";
+import { categoriasRespaldo } from "../data/productos";
 
-// Botones para filtrar por categoría.
+// Botones para filtrar por categoría (las categorías vienen del backend, tabla CATEGORIA).
 // "seleccionada" y "onCambiar" vienen del componente padre (props).
+// Si se usa fuera de ProductosProvider (ej: en una prueba), usa las categorías de respaldo.
 function FiltroCategorias({ seleccionada, onCambiar }) {
-  const opciones = ["Todos", ...categorias];
+  const categorias = useProductos()?.categorias ?? categoriasRespaldo;
+  const opciones = ["Todos", ...categorias.map((c) => c.nombre)];
 
   return (
     <div className="texto-centrado" style={{ marginBottom: "20px" }}>

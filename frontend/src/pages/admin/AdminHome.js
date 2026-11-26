@@ -1,37 +1,48 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useProductos } from "../../context/ProductosContext";
 import { llamarApi } from "../../services/api";
 import { formatearPrecio } from "../../data/productos";
 
 function AdminHome() {
-  const { usuario } = useAuth();
+  const { usuario, esAdmin } = useAuth();
   const { productos } = useProductos();
   const [usuarios, setUsuarios] = useState([]);
-  const [pedidos, setPedidos] = useState([]);
+  const [boletas, setBoletas] = useState([]);
 
-  // Al entrar, se piden los usuarios y las compras a la base de datos
+  // Al entrar se piden las órdenes; los usuarios solo si es Administrador
+  // (para un Vendedor el backend respondería 403).
   useEffect(() => {
-    llamarApi("/usuarios").then(setUsuarios).catch(() => {});
-    llamarApi("/pedidos").then(setPedidos).catch(() => {});
-  }, []);
+    llamarApi("/boletas").then(setBoletas).catch(() => {});
+    if (esAdmin) llamarApi("/usuarios").then(setUsuarios).catch(() => {});
+  }, [esAdmin]);
 
   const stockCritico = productos.filter((p) => p.stock <= p.stockCritico);
-  const ventas = pedidos.reduce((suma, p) => suma + Number(p.total), 0);
+  const ventas = boletas
+    .filter((b) => b.estado !== "ANULADA")
+    .reduce((suma, b) => suma + Number(b.total), 0);
 
   const tarjetas = [
     { titulo: "Productos", valor: productos.length },
-    { titulo: "Usuarios registrados", valor: usuarios.length },
-    { titulo: "Compras", valor: pedidos.length },
+    { titulo: "Órdenes", valor: boletas.length },
     { titulo: "Total vendido", valor: `$${formatearPrecio(ventas)}` },
     { titulo: "Stock crítico", valor: stockCritico.length },
   ];
+  if (esAdmin) tarjetas.splice(1, 0, { titulo: "Usuarios registrados", valor: usuarios.length });
 
   return (
     <>
       <div className="admin-topbar">
         <h1>¡Hola, {usuario?.nombre}!</h1>
+        <span className="badge stock-ok">Rol: {usuario?.tipo}</span>
       </div>
+      {!esAdmin && (
+        <p className="aviso-respaldo">
+          Como Vendedor puedes revisar los <Link to="/admin/productos">productos</Link> y
+          las <Link to="/admin/pedidos">órdenes</Link> (solo lectura).
+        </p>
+      )}
       <section className="grid-productos">
         {tarjetas.map((t) => (
           <article className="producto" key={t.titulo}>

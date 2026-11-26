@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 // Barra superior de la tienda. NavLink marca en naranjo la página actual.
 function Header() {
   const { cantidadTotal } = useCarrito();
-  const { usuario, esAdmin, cerrarSesion } = useAuth();
+  const { usuario, esPersonal, cerrarSesion } = useAuth();
   const navegar = useNavigate();
 
   function salir() {
@@ -34,7 +34,7 @@ function Header() {
           {usuario ? (
             <>
               <span>Hola, {usuario.nombre}</span>
-              {esAdmin && <Link to="/admin">Admin</Link>}
+              {esPersonal && <Link to="/admin">Panel</Link>}
               <Link to="/mis-compras">Mis compras</Link>
               <button type="button" className="enlace-boton" onClick={salir}>Cerrar sesión</button>
             </>

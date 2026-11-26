@@ -4,6 +4,7 @@ import Campo from "../components/Campo";
 import { llamarApi } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import { validarClave, validarCorreo, sinErrores } from "../utils/validaciones";
+import { PERSONAL } from "../utils/roles";
 
 function Login() {
   const [datos, setDatos] = useState({ correo: "", clave: "" });
@@ -36,15 +37,15 @@ function Login() {
     if (!sinErrores(nuevosErrores)) return;
 
     try {
-      const respuesta = await llamarApi("/usuarios/login", {
+      const respuesta = await llamarApi("/auth/login", {
         method: "POST",
         body: JSON.stringify({ correo: datos.correo.trim(), clave: datos.clave }),
       });
       iniciarSesion(respuesta);
 
-      // Si venía de una página protegida, vuelve ahí. Si es admin, va al panel.
+      // Si venía de una página protegida, vuelve ahí. Administrador y Vendedor van al panel.
       const destino = ubicacion.state?.desde
-        || (respuesta.usuario.tipo === "Administrador" ? "/admin" : "/");
+        || (PERSONAL.includes(respuesta.usuario.tipo) ? "/admin" : "/");
       navegar(destino, { replace: true });
     } catch (error) {
       setErrorApi(error.message);

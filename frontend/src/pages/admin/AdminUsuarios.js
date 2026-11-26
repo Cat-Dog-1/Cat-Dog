@@ -19,6 +19,8 @@ function AdminUsuarios() {
 
   async function eliminar(u) {
     if (!window.confirm(`¿Eliminar a ${u.nombre} ${u.apellidos}?`)) return;
+    setMensaje("");
+    setError("");
     try {
       await llamarApi(`/usuarios/${u.id}`, { method: "DELETE" });
       setMensaje(`Se eliminó a ${u.nombre}.`);
@@ -48,7 +50,7 @@ function AdminUsuarios() {
               <td>{u.run}</td>
               <td>{u.nombre} {u.apellidos}</td>
               <td>{u.correo}</td>
-              <td>{u.tipo_usuario}</td>
+              <td>{u.tipo}</td>
               <td>{u.comuna}</td>
               <td className="acciones-fila">
                 <Link to={`/admin/usuarios/editar/${u.id}`} className="btn pequeno">Editar</Link>
