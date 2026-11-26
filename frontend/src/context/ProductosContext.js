@@ -1,16 +1,17 @@
-// ===== Productos de la tienda =====
-// Se cargan desde la base de datos (backend). Si el backend está apagado,
-// se usan los productos de respaldo de data/productos.js para que la tienda
-// igual se vea.
+// ===== Productos y categorías de la tienda =====
+// Se cargan desde el backend (GET /productos y GET /categorias).
+// Si el backend está apagado, se usan los datos de respaldo de data/productos.js
+// para que la tienda igual se vea.
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import productosRespaldo from "../data/productos";
+import productosRespaldo, { categoriasRespaldo } from "../data/productos";
 import { llamarApi, normalizarProducto } from "../services/api";
 
 const ProductosContext = createContext(null);
 
 export function ProductosProvider({ children }) {
   const [productos, setProductos] = useState(productosRespaldo);
-  const [desdeApi, setDesdeApi] = useState(false); // true = vienen de Neon
+  const [categorias, setCategorias] = useState(categoriasRespaldo);
+  const [desdeApi, setDesdeApi] = useState(false); // true = vienen de la base de datos
 
   const recargar = useCallback(async () => {
     try {
@@ -23,17 +24,28 @@ export function ProductosProvider({ children }) {
     }
   }, []);
 
-  // Al abrir la página, se piden los productos una vez
+  const recargarCategorias = useCallback(async () => {
+    try {
+      setCategorias(await llamarApi("/categorias"));
+    } catch {
+      setCategorias(categoriasRespaldo);
+    }
+  }, []);
+
+  // Al abrir la página, se piden los productos y las categorías una vez
   useEffect(() => {
     recargar();
-  }, [recargar]);
+    recargarCategorias();
+  }, [recargar, recargarCategorias]);
 
   function buscarPorId(id) {
     return productos.find((p) => p.id === Number(id));
   }
 
   return (
-    <ProductosContext.Provider value={{ productos, desdeApi, recargar, buscarPorId }}>
+    <ProductosContext.Provider
+      value={{ productos, categorias, desdeApi, recargar, recargarCategorias, buscarPorId }}
+    >
       {children}
     </ProductosContext.Provider>
   );

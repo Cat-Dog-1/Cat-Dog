@@ -8,7 +8,7 @@ function MisCompras() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    llamarApi("/pedidos/mios")
+    llamarApi("/boletas/mias")
       .then(setPedidos)
       .catch((err) => setError(err.message));
   }, []);

@@ -1,10 +1,22 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { PERSONAL, SOLO_ADMIN } from "../utils/roles";
 import "../admin.css";
 
-// Estructura del panel de administración: menú lateral + contenido
+// Opciones del menú lateral y qué roles las ven.
+// El Vendedor solo ve Dashboard, Productos y Órdenes: el resto ni siquiera aparece.
+const MENU = [
+  { ruta: "/admin", texto: "Dashboard", roles: PERSONAL, exacta: true },
+  { ruta: "/admin/productos", texto: "Productos", roles: PERSONAL },
+  { ruta: "/admin/pedidos", texto: "Órdenes", roles: PERSONAL },
+  { ruta: "/admin/categorias", texto: "Categorías", roles: SOLO_ADMIN },
+  { ruta: "/admin/usuarios", texto: "Usuarios", roles: SOLO_ADMIN },
+  { ruta: "/admin/mensajes", texto: "Mensajes", roles: SOLO_ADMIN },
+];
+
+// Estructura del panel: menú lateral + contenido
 function AdminLayout() {
-  const { usuario, cerrarSesion } = useAuth();
+  const { usuario, tieneRol, cerrarSesion } = useAuth();
   const navegar = useNavigate();
   const claseEnlace = ({ isActive }) => (isActive ? "activo" : undefined);
 
@@ -16,18 +28,20 @@ function AdminLayout() {
   return (
     <div className="admin-layout">
       <aside className="admin-sidebar">
-        <div className="logo-admin">Cat<span>Dog</span> Admin</div>
-        <nav>
+        <div className="logo-admin">Cat<span>Dog</span> Panel</div>
+        <nav aria-label="Menú del panel">
           <ul>
-            <li><NavLink to="/admin" end className={claseEnlace}>Dashboard</NavLink></li>
-            <li><NavLink to="/admin/productos" className={claseEnlace}>Productos</NavLink></li>
-            <li><NavLink to="/admin/usuarios" className={claseEnlace}>Usuarios</NavLink></li>
-            <li><NavLink to="/admin/pedidos" className={claseEnlace}>Compras</NavLink></li>
+            {MENU.filter((op) => tieneRol(op.roles)).map((op) => (
+              <li key={op.ruta}>
+                <NavLink to={op.ruta} end={op.exacta} className={claseEnlace}>{op.texto}</NavLink>
+              </li>
+            ))}
             <li><Link to="/">Volver a la tienda</Link></li>
           </ul>
         </nav>
         <div style={{ padding: "20px", fontSize: "0.85rem" }}>
-          <p style={{ margin: "0 0 8px" }}>👤 {usuario?.nombre}</p>
+          <p style={{ margin: "0 0 4px" }}>👤 {usuario?.nombre}</p>
+          <p style={{ margin: "0 0 8px" }}><span className="badge stock-ok">{usuario?.tipo}</span></p>
           <button type="button" className="btn pequeno" style={{ background: "#ff7a3d" }} onClick={salir}>Cerrar sesión</button>
         </div>
       </aside>

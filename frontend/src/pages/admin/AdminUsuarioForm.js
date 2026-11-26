@@ -17,7 +17,7 @@ function AdminUsuarioForm() {
       .then((u) =>
         setInicial({
           run: u.run, nombre: u.nombre, apellidos: u.apellidos, correo: u.correo,
-          telefono: u.telefono || "", tipo: u.tipo_usuario, region: u.region || "",
+          telefono: u.telefono || "", tipo: u.tipo, region: u.region || "",
           comuna: u.comuna || "", direccion: u.direccion || "",
         })
       )

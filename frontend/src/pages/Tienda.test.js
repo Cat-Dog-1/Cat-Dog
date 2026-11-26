@@ -66,7 +66,7 @@ describe('Carrito de compras', () => {
   test('con sesión, Pagar registra la compra y muestra la boleta', async () => {
     iniciarSesionComo('Cliente');
     simularBackend({
-      'POST /pedidos': { id: 12, total: 9980, estado: 'Pagado', creado_en: '2026-10-28T10:00:00',
+      'POST /boletas': { id: 12, total: 9980, estado: 'PAGADA', fecha: '2026-10-28T10:00:00',
         items: [{ nombre: 'Pelota de Goma Resistente', precio: 4990, cantidad: 2 }] },
     });
     conProductoEnCarrito();
@@ -77,7 +77,7 @@ describe('Carrito de compras', () => {
 
   test('si no hay stock, muestra el error del backend y no vacía el carrito', async () => {
     iniciarSesionComo('Cliente');
-    simularBackend({ 'POST /pedidos': { __error: 'No hay stock suficiente' } });
+    simularBackend({ 'POST /boletas': { __error: 'No hay stock suficiente' } });
     conProductoEnCarrito();
     fireEvent.click(screen.getByText('Pagar'));
     expect(await screen.findByText('No hay stock suficiente')).toBeInTheDocument();
@@ -96,9 +96,9 @@ describe('Sesión de usuario', () => {
 
   test('login correcto de un administrador lo lleva al panel', async () => {
     simularBackend({
-      'POST /usuarios/login': { token: 't', usuario: { id: 1, nombre: 'Admin', tipo: 'Administrador' } },
+      'POST /auth/login': { token: 't', refreshToken: 'r', usuario: { id: 1, nombre: 'Admin', tipo: 'Administrador' } },
       'GET /usuarios': [],
-      'GET /pedidos': [],
+      'GET /boletas': [],
     });
     irA('/login');
     render(<App />);
@@ -106,6 +106,26 @@ describe('Sesión de usuario', () => {
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'admin123' } });
     fireEvent.click(screen.getByRole('button', { name: 'Iniciar sesión' }));
     expect(await screen.findByText('¡Hola, Admin!')).toBeInTheDocument();
+  });
+
+  test('login de un vendedor también lo lleva al panel', async () => {
+    simularBackend({
+      'POST /auth/login': { token: 't', refreshToken: 'r', usuario: { id: 2, nombre: 'Vera', tipo: 'Vendedor' } },
+      'GET /boletas': [],
+    });
+    irA('/login');
+    render(<App />);
+    fireEvent.change(screen.getByLabelText('Correo'), { target: { value: 'vendedor@duoc.cl' } });
+    fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'vende123' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Iniciar sesión' }));
+    expect(await screen.findByText('¡Hola, Vera!')).toBeInTheDocument();
+    expect(localStorage.getItem('catdog_refresh')).toBe('r');
+  });
+
+  test('la sesión sigue activa al recargar la página', () => {
+    iniciarSesionComo('Cliente', 'Ana');
+    render(<App />); // equivale a abrir de nuevo la página
+    expect(screen.getByText('Hola, Ana')).toBeInTheDocument();
   });
 
   test('cerrar sesión vuelve a mostrar "Iniciar sesión"', () => {
@@ -128,7 +148,7 @@ describe('Registro de usuario', () => {
   });
 
   test('un registro válido muestra el mensaje de éxito', async () => {
-    simularBackend({ 'POST /usuarios/registro': { id: 20 } });
+    simularBackend({ 'POST /auth/registro': { id: 20 } });
     irA('/registro');
     render(<App />);
     const escribir = (etiqueta, valor) => fireEvent.change(screen.getByLabelText(etiqueta), { target: { value: valor } });
@@ -169,7 +189,7 @@ describe('Páginas informativas', () => {
 
   test('mis compras lista las boletas del usuario', async () => {
     iniciarSesionComo('Cliente');
-    simularBackend({ 'GET /pedidos/mios': [{ id: 5, total: 4990, estado: 'Pagado', creado_en: '2026-10-28T10:00:00',
+    simularBackend({ 'GET /boletas/mias': [{ id: 5, total: 4990, estado: 'PAGADA', fecha: '2026-10-28T10:00:00',
       items: [{ nombre: 'Pelota', precio: 4990, cantidad: 1 }] }] });
     irA('/mis-compras');
     render(<App />);

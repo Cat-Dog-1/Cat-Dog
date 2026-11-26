@@ -10,7 +10,7 @@ function Registro() {
   async function guardar(datos) {
     setExito(false);
     try {
-      await llamarApi("/usuarios/registro", {
+      await llamarApi("/auth/registro", {
         method: "POST",
         body: JSON.stringify({
           run: datos.run.trim().toUpperCase(),
